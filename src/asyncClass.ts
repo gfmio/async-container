@@ -8,7 +8,6 @@ export const asyncClass = <C extends new (...args: never[]) => unknown>(clsImpor
 
     const cls = new Proxy<C>(AsyncConstructorBase as unknown as C, {
         construct(target, args, newTarget) {
-            console.log("construct", target, args, newTarget);
             clsPromise = clsPromise || clsImport();
             return clsPromise.then((cls) => new cls(...(args as never[])));
         }
